@@ -22,8 +22,6 @@ set(PROJECT_SOURCES
         mainwindow.ui
         triangleshader.cpp
         triangleshader.h
-        shaderutils.cpp
-        shaderutils.h
         renderer.cpp
         renderer.h
         vertexbuffer.cpp
