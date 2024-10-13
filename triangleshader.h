@@ -2,7 +2,6 @@
 #define TRIANGLESHADER_H
 
 #include "shaderutils.h"
-#include "rectanglemesh.h"
 #include "vertexbuffer.h"
 #include "indexbuffer.h"
 

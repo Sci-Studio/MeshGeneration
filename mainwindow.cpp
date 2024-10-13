@@ -1,7 +1,5 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
-#include "renderwidget.h"
-#include "rectanglemesh.h"
 #include <iostream>
 
 MainWindow::MainWindow(QWidget *parent)
@@ -19,8 +17,6 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->editBlue, QOverload<double>::of(&QDoubleSpinBox::valueChanged), this, &MainWindow::onColorChange);
     connect(ui->editAlpha, QOverload<double>::of(&QDoubleSpinBox::valueChanged), this, &MainWindow::onColorChange);
 
-    // connect the width and height change
-    connect(ui->generateMesh, &QPushButton::clicked, this, &MainWindow::onGenerateButtonClicked);
 }
 
 MainWindow::~MainWindow()
@@ -31,13 +27,6 @@ MainWindow::~MainWindow()
 void MainWindow::onRenderButtonClicked()
 {
 
-    // Pass the shape and dimensions to the OpenGL widget
-    std::vector<unsigned int> dim;
-    dim.resize(2);
-    dim[0] = ui->editWidth->value();
-    dim[1] = ui->editHeight->value();
-
-    ui->renderWidget->changeDimiensions(dim);
 }
 
 void MainWindow::onColorChange(double c)
@@ -51,10 +40,3 @@ void MainWindow::onColorChange(double c)
     ui->renderWidget->changeColor(color);
 }
 
-void MainWindow::onGenerateButtonClicked()
-{
-    std::string fileName("rect_mesh");
-    RectangleMesh rectMesh(ui->editWidth->value(), ui->editHeight->value());
-    rectMesh.printMesh();
-    rectMesh.exportToOBJ(fileName);
-}
