@@ -3,6 +3,9 @@
 
 #include "shaderutils.h"
 #include "rectanglemesh.h"
+#include "vertexbuffer.h"
+#include "indexbuffer.h"
+
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
 #include <QOpenGLFunctions_4_2_Compatibility>
@@ -13,7 +16,6 @@ class TriangleShader: public QOpenGLWidget, protected QOpenGLFunctions_4_2_Compa
 public:
     TriangleShader(QWidget *parent = nullptr);
     void changeColor(std::vector<float> color);
-    void changeDimiensions(std::vector<unsigned int> dim);
 
 protected:
     void initializeGL() override;
@@ -23,10 +25,12 @@ protected:
 private:
     void setupVertexData();
 
-    std::vector<float> *positions;
+    VertexBuffer* vb;
+    IndexBuffer* ib;
+
     std::vector<float> color;
     std::vector<unsigned int> indicies;
-    GLuint vbo, vao, ibo;
+    GLuint vao;
     unsigned int shader;
 
 };
