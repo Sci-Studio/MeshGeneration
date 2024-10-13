@@ -20,14 +20,10 @@ set(PROJECT_SOURCES
         mainwindow.cpp
         mainwindow.h
         mainwindow.ui
-        renderwidget.cpp
-        renderwidget.h
         triangleshader.cpp
         triangleshader.h
         shaderutils.cpp
         shaderutils.h
-        rectanglemesh.cpp
-        rectanglemesh.h
         renderer.cpp
         renderer.h
         vertexbuffer.cpp
