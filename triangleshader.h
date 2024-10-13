@@ -1,9 +1,11 @@
 #ifndef TRIANGLESHADER_H
 #define TRIANGLESHADER_H
 
-#include "shaderutils.h"
 #include "vertexbuffer.h"
 #include "indexbuffer.h"
+#include "vertexarray.h"
+#include "vertexbufferlayout.h"
+#include "shader.h"
 
 #include <QOpenGLWidget>
 #include <QOpenGLFunctions>
@@ -22,15 +24,12 @@ protected:
     void paintGL() override;
 
 private:
-    void setupVertexData();
-
+    VertexArray* va;
     VertexBuffer* vb;
     IndexBuffer* ib;
+    VertexBufferLayout* layout;
+    Shader* shader;
 
     std::vector<float> color;
-    std::vector<unsigned int> indicies;
-    GLuint vao;
-    unsigned int shader;
-
 };
 #endif // TRIANGLESHADER_H

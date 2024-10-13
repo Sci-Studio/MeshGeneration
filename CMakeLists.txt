@@ -30,6 +30,12 @@ set(PROJECT_SOURCES
         vertexbuffer.h
         indexbuffer.cpp
         indexbuffer.h
+        vertexarray.cpp
+        vertexarray.h
+        vertexbufferlayout.cpp
+        vertexbufferlayout.h
+        shader.h
+        shader.cpp
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
