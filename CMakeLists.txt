@@ -34,6 +34,9 @@ set(PROJECT_SOURCES
         vertexbufferlayout.h
         shader.h
         shader.cpp
+        geometry/geom.h
+        geometry/airfoil.cpp
+        geometry/airfoil.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
