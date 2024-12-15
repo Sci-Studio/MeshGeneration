@@ -8,7 +8,7 @@ ShaderUtils::ShaderUtils()
 
 }
 
-unsigned int ShaderUtils::CompileShader(QOpenGLFunctions_4_2_Compatibility& context, unsigned int type, const std::string& source)
+unsigned int ShaderUtils::CompileShader(QOpenGLClass& context, unsigned int type, const std::string& source)
 {
     unsigned int id = context.glCreateShader(type);
     const char* src = source.c_str();
@@ -34,9 +34,9 @@ unsigned int ShaderUtils::CompileShader(QOpenGLFunctions_4_2_Compatibility& cont
     return id;
 }
 
-unsigned int ShaderUtils::CreateShader(QOpenGLFunctions_4_2_Compatibility& context, const std::string &vertexShader, const std::string &fragmentShader)
+unsigned int ShaderUtils::CreateShader(QOpenGLClass& context, const std::string &vertexShader, const std::string &fragmentShader)
 {
-    unsigned int program = context.QOpenGLFunctions_4_2_Compatibility::glCreateProgram();
+    unsigned int program = context.QOpenGLClass::glCreateProgram();
     unsigned int vs = CompileShader(context, GL_VERTEX_SHADER, vertexShader);
     unsigned int fs = CompileShader(context, GL_FRAGMENT_SHADER, fragmentShader);
 
@@ -79,13 +79,13 @@ ShaderProgramSource ShaderUtils::ParseShader(const std::string &filepath)
     return { ss[0].str(), ss[1].str() };
 }
 
-void ShaderUtils::GLClearError(QOpenGLFunctions_4_2_Compatibility& context)
+void ShaderUtils::GLClearError(QOpenGLClass& context)
 {
     while(context.glGetError() != GL_NO_ERROR);
 }
 
 
-void ShaderUtils::GLCheckError(QOpenGLFunctions_4_2_Compatibility &context)
+void ShaderUtils::GLCheckError(QOpenGLClass &context)
 {
     while(GLenum error = context.glGetError())
     {

@@ -1,7 +1,7 @@
 #include "indexbuffer.h"
 #include "renderer.h"
 
-IndexBuffer::IndexBuffer(QOpenGLFunctions_4_2_Compatibility& context, const void* data, unsigned int count)
+IndexBuffer::IndexBuffer(QOpenGLClass& context, const void* data, unsigned int count)
     : m_Context(context), m_Count(count)
 {
     ASSERT(sizeof(unsigned int) == sizeof(GLuint));

@@ -20,8 +20,8 @@ set(PROJECT_SOURCES
         mainwindow.cpp
         mainwindow.h
         mainwindow.ui
-        triangleshader.cpp
-        triangleshader.h
+        renderwidget.cpp
+        renderwidget.h
         renderer.cpp
         renderer.h
         vertexbuffer.cpp
@@ -58,6 +58,9 @@ else()
         )
     endif()
 endif()
+
+# Specify precompiled headers
+target_precompile_headers(MeshGeneration PRIVATE pch.h)
 
 target_link_libraries(MeshGeneration PRIVATE Qt${QT_VERSION_MAJOR}::Widgets OpenGL::GLU)
 

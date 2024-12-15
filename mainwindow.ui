@@ -66,7 +66,7 @@
      <string>Render</string>
     </property>
    </widget>
-   <widget class="TriangleShader" name="renderWidget">
+   <widget class="RenderWidget" name="renderWidget">
     <property name="geometry">
      <rect>
       <x>120</x>
@@ -182,9 +182,9 @@
  </widget>
  <customwidgets>
   <customwidget>
-   <class>TriangleShader</class>
+   <class>RenderWidget</class>
    <extends>QOpenGLWidget</extends>
-   <header location="global">triangleshader.h</header>
+   <header location="global">renderwidget.h</header>
   </customwidget>
  </customwidgets>
  <resources/>

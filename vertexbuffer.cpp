@@ -1,7 +1,7 @@
 #include "vertexbuffer.h"
 #include "renderer.h"
 
-VertexBuffer::VertexBuffer(QOpenGLFunctions_4_2_Compatibility& context, const void* data, unsigned int size)
+VertexBuffer::VertexBuffer(QOpenGLClass& context, const void* data, unsigned int size)
     : m_Context(context)
 {
     GLCall(context.glGenBuffers(1, &m_RendererID), context);

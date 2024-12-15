@@ -1,14 +1,14 @@
 #pragma once
 
-#include <QOpenGLFunctions_4_2_Compatibility>
+#include "pch.h"
 
 class VertexBuffer
 {
 private:
     unsigned int m_RendererID;
-    QOpenGLFunctions_4_2_Compatibility& m_Context;
+    QOpenGLClass& m_Context;
 public:
-    VertexBuffer(QOpenGLFunctions_4_2_Compatibility& context, const void* data, unsigned int size);
+    VertexBuffer(QOpenGLClass& context, const void* data, unsigned int size);
     ~VertexBuffer();
 
     void Bind() const;
