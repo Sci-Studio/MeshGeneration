@@ -10,10 +10,10 @@
 
 #include <QOpenGLWidget>
 
-class TriangleShader: public QOpenGLWidget, protected QOpenGLClass
+class RenderWidget: public QOpenGLWidget, protected QOpenGLClass
 {
 public:
-    TriangleShader(QWidget *parent = nullptr);
+    RenderWidget(QWidget *parent = nullptr);
     void changeColor(std::vector<float> color);
 
 protected:

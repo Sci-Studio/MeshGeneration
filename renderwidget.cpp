@@ -1,18 +1,19 @@
-#include "triangleshader.h"
+#include "renderwidget.h"
+#include "renderer.h"
 
 #include <string>
 #include <QMatrix4x4>
 
-#include "renderer.h"
 
 
-TriangleShader::TriangleShader(QWidget *parent) :
+
+RenderWidget::RenderWidget(QWidget *parent) :
     QOpenGLWidget(parent)
 {
 
 }
 
-void TriangleShader::initializeGL()
+void RenderWidget::initializeGL()
 {
     initializeOpenGLFunctions();
 
@@ -51,12 +52,12 @@ void TriangleShader::initializeGL()
     ib->UnBind();
 }
 
-void TriangleShader::resizeGL(int w, int h)
+void RenderWidget::resizeGL(int w, int h)
 {
     glViewport(0, 0, w, h);
 }
 
-void TriangleShader::paintGL()
+void RenderWidget::paintGL()
 {
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 
@@ -68,7 +69,7 @@ void TriangleShader::paintGL()
     GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0), *this);
 }
 
-void TriangleShader::changeColor(std::vector<float> color)
+void RenderWidget::changeColor(std::vector<float> color)
 {
     if (color.size() > 4)
     {
