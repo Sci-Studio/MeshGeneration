@@ -59,6 +59,9 @@ else()
     endif()
 endif()
 
+# Specify precompiled headers
+target_precompile_headers(MeshGeneration PRIVATE pch.h)
+
 target_link_libraries(MeshGeneration PRIVATE Qt${QT_VERSION_MAJOR}::Widgets OpenGL::GLU)
 
 set_target_properties(MeshGeneration PROPERTIES

@@ -1,6 +1,7 @@
 #ifndef TRIANGLESHADER_H
 #define TRIANGLESHADER_H
 
+#include "pch.h"
 #include "vertexbuffer.h"
 #include "indexbuffer.h"
 #include "vertexarray.h"
@@ -8,11 +9,8 @@
 #include "shader.h"
 
 #include <QOpenGLWidget>
-#include <QOpenGLFunctions>
-#include <QOpenGLFunctions_4_2_Compatibility>
 
-
-class TriangleShader: public QOpenGLWidget, protected QOpenGLFunctions_4_2_Compatibility
+class TriangleShader: public QOpenGLWidget, protected QOpenGLClass
 {
 public:
     TriangleShader(QWidget *parent = nullptr);

@@ -1,5 +1,6 @@
 #pragma once
 
+#include "pch.h"
 #include "vertexbuffer.h"
 #include "vertexbufferlayout.h"
 
@@ -7,9 +8,9 @@ class VertexArray
 {
 private:
     unsigned int m_RendererID;
-    QOpenGLFunctions_4_2_Compatibility& m_Context;
+    QOpenGLClass& m_Context;
 public:
-    VertexArray(QOpenGLFunctions_4_2_Compatibility& context);
+    VertexArray(QOpenGLClass& context);
     ~VertexArray();
 
     void AddBuffer(const VertexBuffer& vb, const VertexBufferLayout& layout);

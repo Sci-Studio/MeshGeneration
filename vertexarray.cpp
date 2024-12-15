@@ -1,7 +1,7 @@
 #include "vertexarray.h"
 #include "renderer.h"
 
-VertexArray::VertexArray(QOpenGLFunctions_4_2_Compatibility& context)
+VertexArray::VertexArray(QOpenGLClass& context)
     : m_Context(context)
 {
     GLCall(m_Context.glGenVertexArrays(1, &m_RendererID), m_Context);

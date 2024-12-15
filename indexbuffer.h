@@ -1,15 +1,15 @@
 #pragma once
 
-#include <QOpenGLFunctions_4_2_Compatibility>
+#include "pch.h"
 
 class IndexBuffer
 {
 private:
     unsigned int m_RendererID;
     unsigned int m_Count;
-    QOpenGLFunctions_4_2_Compatibility& m_Context;
+    QOpenGLClass& m_Context;
 public:
-    IndexBuffer(QOpenGLFunctions_4_2_Compatibility& context, const void* data, unsigned int count);
+    IndexBuffer(QOpenGLClass& context, const void* data, unsigned int count);
     ~IndexBuffer();
 
     void Bind() const;

@@ -1,8 +1,9 @@
 #pragma once
 
+#include "pch.h"
+
 #include <string>
 #include <unordered_map>
-#include <QOpenGLFunctions_4_2_Compatibility>
 
 struct ShaderProgramSource
 {
@@ -15,10 +16,10 @@ class Shader
 private:
     std::string m_FilePath;
     unsigned int m_RendererID;
-    QOpenGLFunctions_4_2_Compatibility& m_Context;
+    QOpenGLClass& m_Context;
     std::unordered_map<std::string, int> m_UniformLocationCache;
 public:
-    Shader(QOpenGLFunctions_4_2_Compatibility& context, const std::string& filepath);
+    Shader(QOpenGLClass& context, const std::string& filepath);
     ~Shader();
 
     void Bind() const;

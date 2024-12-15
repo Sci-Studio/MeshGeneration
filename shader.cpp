@@ -5,7 +5,7 @@
 #include <fstream>
 #include <sstream>
 
-Shader::Shader(QOpenGLFunctions_4_2_Compatibility& context, const std::string& filepath)
+Shader::Shader(QOpenGLClass& context, const std::string& filepath)
     : m_Context(context), m_FilePath(filepath), m_RendererID(0)
 {
     ShaderProgramSource source = ParseShader(filepath);
@@ -20,7 +20,7 @@ Shader::~Shader()
 
 unsigned int Shader::CreateShader(const std::string &vertexShader, const std::string &fragmentShader)
 {
-    unsigned int program = m_Context.QOpenGLFunctions_4_2_Compatibility::glCreateProgram();
+    unsigned int program = m_Context.QOpenGLClass::glCreateProgram();
     unsigned int vs = CompileShader(GL_VERTEX_SHADER, vertexShader);
     unsigned int fs = CompileShader(GL_FRAGMENT_SHADER, fragmentShader);
 

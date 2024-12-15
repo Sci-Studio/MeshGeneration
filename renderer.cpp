@@ -1,11 +1,11 @@
 #include "renderer.h"
 
-void GLClearError(QOpenGLFunctions_4_2_Compatibility& context)
+void GLClearError(QOpenGLClass& context)
 {
     while(context.glGetError() != GL_NO_ERROR);
 }
 
-bool GLLogCall(QOpenGLFunctions_4_2_Compatibility &context, const char* function, const char* file, int line)
+bool GLLogCall(QOpenGLClass &context, const char* function, const char* file, int line)
 {
     while(GLenum error = context.glGetError())
     {

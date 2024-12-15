@@ -1,9 +1,8 @@
 #pragma once
 
-#include <vector>
-#include <QOpenGLFunctions_4_2_Compatibility>
-
 #include "renderer.h"
+
+#include <vector>
 
 struct VertexBufferElement
 {
