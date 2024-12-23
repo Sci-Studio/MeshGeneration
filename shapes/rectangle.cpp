@@ -1,12 +1,12 @@
 #include "rectangle.h"
 #include "renderer.h"
 
-Rectangle::Rectangle(QOpenGLClass& context, const float data[8]): Shape(context)
+Rectangle::Rectangle(QOpenGLClass& context, const float data[8]) : Shape(context)
 {
-        unsigned int indices[] = {
-            0, 1, 2,
-            2, 3, 0
-        };
+    unsigned int indices[] = {
+        0, 1, 2,
+        2, 3, 0
+    };
     va = new VertexArray(m_Context);
     vb = new VertexBuffer(m_Context, data, 4 * 2 * sizeof(float));
     layout = new VertexBufferLayout();
@@ -15,7 +15,7 @@ Rectangle::Rectangle(QOpenGLClass& context, const float data[8]): Shape(context)
     ib = new IndexBuffer(m_Context, indices, 6);
 }
 
-void Rectangle::render() const {
+void Rectangle::Render() const {
     this->Bind();
     GLCall(m_Context.glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0), m_Context);
 }

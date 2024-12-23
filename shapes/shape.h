@@ -11,7 +11,7 @@ class Shape {
 public:
     Shape(QOpenGLClass& context) : m_Context(context) {}
 
-    virtual void render() const = 0;
+    virtual void Render() const = 0;
     virtual void Bind() const = 0;
     virtual void UnBind() const = 0;
 protected:

@@ -23,13 +23,9 @@ protected:
     void paintGL() override;
 
 private:
-    VertexArray* va;
-    VertexBuffer* vb;
-    IndexBuffer* ib;
-    VertexBufferLayout* layout;
     Shader* shader;
-    Shape* shape;
 
+    std::vector<Shape*> shapes;
     std::vector<float> color;
 };
 #endif // TRIANGLESHADER_H

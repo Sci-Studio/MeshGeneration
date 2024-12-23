@@ -11,7 +11,7 @@ class Rectangle : public Shape
 public:
     Rectangle(QOpenGLClass& context, const float data[8]);
 
-    void render() const override;
+    void Render() const override;
     void Bind() const override;
     void UnBind() const override;
 

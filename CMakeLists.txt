@@ -37,6 +37,8 @@ set(PROJECT_SOURCES
         shapes/shape.h
         shapes/rectangle.cpp
         shapes/rectangle.h
+        shapes/line.cpp
+        shapes/line.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
