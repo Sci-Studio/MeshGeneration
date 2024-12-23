@@ -2,6 +2,7 @@
 #include "renderer.h"
 #include "shapes/rectangle.h"
 #include "shapes/line.h"
+#include "shapes/point.h"
 
 #include <string>
 #include <QMatrix4x4>
@@ -44,17 +45,23 @@ void RenderWidget::initializeGL()
         -0.7f,  0.3f
     };
 
+    float points[] = {
+        -0.5f,  0.5f, 0.0f,  // Point 1
+         0.0f,  0.0f, 0.0f,  // Point 2
+         0.5f, -0.5f, 0.0f   // Point 3
+    };
     color.resize(4);
     color[0] = 0.1f;
     color[1] = 0.3f;
     color[2] = 0.8f;
     color[3] = 1.0f;
 
-    shapes.resize(4);
+    shapes.resize(5);
     shapes[0] = new Rectangle(*this, positions);
     shapes[1] = new Line(*this, horLineVert);
     shapes[2] = new Line(*this, vertLineVert);
     shapes[3] = new Rectangle(*this, newSquare);
+    shapes[4] = new Point(*this, points);
 
     shader = new Shader(*this, "/home/hisham/dev_latest/MeshGen/basic.vert");
     shader->Bind();
