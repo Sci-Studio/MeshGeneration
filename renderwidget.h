@@ -7,6 +7,7 @@
 #include "vertexarray.h"
 #include "vertexbufferlayout.h"
 #include "shader.h"
+#include "shapes/shape.h"
 
 #include <QOpenGLWidget>
 
@@ -27,6 +28,7 @@ private:
     IndexBuffer* ib;
     VertexBufferLayout* layout;
     Shader* shader;
+    Shape* shape;
 
     std::vector<float> color;
 };

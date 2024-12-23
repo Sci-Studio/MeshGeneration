@@ -7,10 +7,9 @@ class VertexBuffer
 private:
     unsigned int m_RendererID;
     QOpenGLClass& m_Context;
-    GLenum m_target;
 
 public:
-    VertexBuffer(QOpenGLClass& context, const void* data, unsigned int size, GLenum target);
+    VertexBuffer(QOpenGLClass& context, const void* data, unsigned int size);
     ~VertexBuffer();
 
     void Bind() const;

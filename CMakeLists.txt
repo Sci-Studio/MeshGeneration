@@ -34,6 +34,9 @@ set(PROJECT_SOURCES
         vertexbufferlayout.h
         shader.h
         shader.cpp
+        shapes/shape.h
+        shapes/rectangle.cpp
+        shapes/rectangle.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
