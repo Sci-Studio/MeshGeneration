@@ -3,6 +3,7 @@
 #include "shapes/rectangle.h"
 #include "shapes/line.h"
 #include "shapes/point.h"
+#include "shapes/curve.h"
 
 #include <string>
 #include <QMatrix4x4>
@@ -50,18 +51,30 @@ void RenderWidget::initializeGL()
          0.0f,  0.0f, 0.0f,  // Point 2
          0.5f, -0.5f, 0.0f   // Point 3
     };
+
+    float airfoilCurve[] = {
+        -0.9f,  0.1f, 0.0f,
+        -0.6f,  0.3f, 0.0f,
+        -0.3f,  0.2f, 0.0f,
+         0.0f,  0.0f, 0.0f,
+         0.3f, -0.1f, 0.0f,
+         0.6f, -0.2f, 0.0f,
+         0.9f, -0.1f, 0.0f
+    };
+
     color.resize(4);
     color[0] = 0.1f;
     color[1] = 0.3f;
     color[2] = 0.8f;
     color[3] = 1.0f;
 
-    shapes.resize(5);
-    shapes[0] = new Rectangle(*this, positions);
-    shapes[1] = new Line(*this, horLineVert);
-    shapes[2] = new Line(*this, vertLineVert);
-    shapes[3] = new Rectangle(*this, newSquare);
-    shapes[4] = new Point(*this, points);
+    shapes.resize(1);
+//    shapes[0] = new Rectangle(*this, positions);
+//    shapes[1] = new Line(*this, horLineVert);
+//    shapes[2] = new Line(*this, vertLineVert);
+//    shapes[3] = new Rectangle(*this, newSquare);
+    shapes[0] = new Curve(*this, airfoilCurve);
+    // shapes[1] = new Point(*this, airfoilCurve);
 
     shader = new Shader(*this, "/home/hisham/dev_latest/MeshGen/basic.vert");
     shader->Bind();

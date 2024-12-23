@@ -1,18 +1,18 @@
-#ifndef POINT_H
-#define POINT_H
+#ifndef CURVE_H
+#define CURVE_H
 
 #include "pch.h"
 
 #include "shape.h"
 
-class Point : public Shape
+class Curve : public Shape
 {
 public:
-    Point(QOpenGLClass& context, const float data[]);
+    Curve(QOpenGLClass& context, const float data[]);
 
     void Render() const override;
     void Bind() const override;
     void UnBind() const override;
 };
 
-#endif // POINT_H
+#endif // CURVE_H
