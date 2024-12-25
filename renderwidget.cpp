@@ -94,7 +94,7 @@ void RenderWidget::initializeGL()
     std::string naca = "2412"; // Example NACA airfoil
     std::string naca2424 = "1408"; // Example NACA airfoil
     int n_points = 100;        // Number of points along the chord
-    float chord = 5.0f;        // Chord length
+    float chord = 1.0f;        // Chord length
     Airfoil cordFoil(naca, n_points, chord);
 
     cordFoil.printUpperAirFoilPoints();
