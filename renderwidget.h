@@ -7,6 +7,7 @@
 #include "vertexarray.h"
 #include "vertexbufferlayout.h"
 #include "shader.h"
+#include "shapes/shape.h"
 
 #include <QOpenGLWidget>
 
@@ -22,12 +23,9 @@ protected:
     void paintGL() override;
 
 private:
-    VertexArray* va;
-    VertexBuffer* vb;
-    IndexBuffer* ib;
-    VertexBufferLayout* layout;
     Shader* shader;
 
+    std::vector<Shape*> shapes;
     std::vector<float> color;
 };
 #endif // TRIANGLESHADER_H

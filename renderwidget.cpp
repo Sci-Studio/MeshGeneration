@@ -1,5 +1,9 @@
 #include "renderwidget.h"
 #include "renderer.h"
+#include "shapes/rectangle.h"
+#include "shapes/line.h"
+#include "shapes/point.h"
+#include "shapes/curve.h"
 
 #include <string>
 #include <QMatrix4x4>
@@ -17,6 +21,7 @@ void RenderWidget::initializeGL()
 {
     initializeOpenGLFunctions();
 
+
     float positions[8] = {
         -0.5f, -0.5f,
          0.5f, -0.5f,
@@ -24,9 +29,37 @@ void RenderWidget::initializeGL()
         -0.5f,  0.5f
     };
 
-    unsigned int indices[] = {
-        0, 1, 2,
-        2, 3, 0
+    float horLineVert[] = {
+        -0.7f,  -0.7f, 0.0f,
+         0.7f,  -0.7f, 0.0f
+    };
+
+    float vertLineVert[] = {
+        -0.7f,  -0.7f, 0.0f,
+        -0.7f,   0.7f, 0.0f
+    };
+
+    float newSquare[8] = {
+        -0.7f, -0.3f,
+        -0.5f, -0.3f,
+        -0.5f,  0.3f,
+        -0.7f,  0.3f
+    };
+
+    float points[] = {
+        -0.5f,  0.5f, 0.0f,  // Point 1
+         0.0f,  0.0f, 0.0f,  // Point 2
+         0.5f, -0.5f, 0.0f   // Point 3
+    };
+
+    float airfoilCurve[] = {
+        -0.9f,  0.1f, 0.0f,
+        -0.6f,  0.3f, 0.0f,
+        -0.3f,  0.2f, 0.0f,
+         0.0f,  0.0f, 0.0f,
+         0.3f, -0.1f, 0.0f,
+         0.6f, -0.2f, 0.0f,
+         0.9f, -0.1f, 0.0f
     };
 
     color.resize(4);
@@ -35,21 +68,24 @@ void RenderWidget::initializeGL()
     color[2] = 0.8f;
     color[3] = 1.0f;
 
-    va = new VertexArray(*this);
-    vb = new VertexBuffer(*this, positions, 4 * 2 * sizeof(float));
-    layout = new VertexBufferLayout();
-    layout->Push<float>(2);
-    va->AddBuffer(*vb, *layout);
-    ib = new IndexBuffer(*this, indices, 6);
+    shapes.resize(2);
+//    shapes[0] = new Rectangle(*this, positions);
+//    shapes[1] = new Line(*this, horLineVert);
+//    shapes[2] = new Line(*this, vertLineVert);
+//    shapes[3] = new Rectangle(*this, newSquare);
+    shapes[0] = new Curve(*this, airfoilCurve);
+    shapes[1] = new Point(*this, airfoilCurve);
 
     shader = new Shader(*this, "/home/hisham/dev_latest/MeshGen/basic.vert");
     shader->Bind();
     shader->SetUniform4f("u_Color", color[0], color[1], color[2], color[3]);
 
-    va->UnBind();
     shader->Unbind();
-    vb->UnBind();
-    ib->UnBind();
+
+    for(unsigned int i = 0; i < shapes.size(); i++) {
+        const auto& element = shapes[i];
+        element->UnBind();
+    }
 }
 
 void RenderWidget::resizeGL(int w, int h)
@@ -63,10 +99,12 @@ void RenderWidget::paintGL()
 
     shader->Bind();
     shader->SetUniform4f("u_Color", color[0], color[1], color[2], color[3]);
-    va->Bind();
-    ib->Bind();
 
-    GLCall(glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0), *this);
+    for(unsigned int i = 0; i < shapes.size(); i++) {
+        const auto& element = shapes[i];
+        element->Render();
+    }
+
 }
 
 void RenderWidget::changeColor(std::vector<float> color)

@@ -1,6 +1,6 @@
 cmake_minimum_required(VERSION 3.5)
 
-project(MeshGenerationeration VERSION 0.1 LANGUAGES CXX)
+project(MeshGeneration VERSION 0.1 LANGUAGES CXX)
 
 set(CMAKE_INCLUDE_CURRENT_DIR ON)
 
@@ -34,6 +34,15 @@ set(PROJECT_SOURCES
         vertexbufferlayout.h
         shader.h
         shader.cpp
+        shapes/shape.h
+        shapes/rectangle.cpp
+        shapes/rectangle.h
+        shapes/line.cpp
+        shapes/line.h
+        shapes/point.cpp
+        shapes/point.h
+        shapes/curve.cpp
+        shapes/curve.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
