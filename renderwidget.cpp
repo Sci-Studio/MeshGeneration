@@ -68,13 +68,13 @@ void RenderWidget::initializeGL()
     color[2] = 0.8f;
     color[3] = 1.0f;
 
-    shapes.resize(1);
+    shapes.resize(2);
 //    shapes[0] = new Rectangle(*this, positions);
 //    shapes[1] = new Line(*this, horLineVert);
 //    shapes[2] = new Line(*this, vertLineVert);
 //    shapes[3] = new Rectangle(*this, newSquare);
     shapes[0] = new Curve(*this, airfoilCurve);
-    // shapes[1] = new Point(*this, airfoilCurve);
+    shapes[1] = new Point(*this, airfoilCurve);
 
     shader = new Shader(*this, "/home/hisham/dev_latest/MeshGen/basic.vert");
     shader->Bind();
