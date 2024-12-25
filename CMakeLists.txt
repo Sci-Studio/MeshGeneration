@@ -43,6 +43,9 @@ set(PROJECT_SOURCES
         shapes/point.h
         shapes/curve.cpp
         shapes/curve.h
+        geometry/geom.h
+        geometry/airfoil.cpp
+        geometry/airfoil.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)

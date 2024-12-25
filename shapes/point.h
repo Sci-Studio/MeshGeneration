@@ -8,11 +8,13 @@
 class Point : public Shape
 {
 public:
-    Point(QOpenGLClass& context, const float data[]);
+    Point(QOpenGLClass& context, const float data[], unsigned int size);
 
     void Render() const override;
     void Bind() const override;
     void UnBind() const override;
+private:
+    unsigned int m_Size;
 };
 
 #endif // POINT_H
