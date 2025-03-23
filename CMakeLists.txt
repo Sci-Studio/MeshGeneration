@@ -43,6 +43,8 @@ set(PROJECT_SOURCES
         shapes/point.h
         shapes/curve.cpp
         shapes/curve.h
+        parser/objparser.cpp
+        parser/objparser.h
 )
 
 if(${QT_VERSION_MAJOR} GREATER_EQUAL 6)
