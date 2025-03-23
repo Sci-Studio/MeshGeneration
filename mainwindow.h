@@ -18,6 +18,12 @@ public:
     void onColorChange(double c);
     void onGenerateButtonClicked();
 
+signals:
+    void fileSelected(const QString &filePath); // Custom signal
+
+private slots:
+    void onImportButtonClicked(); // Slot to handle button click
+
 private:
     Ui::MainWindow *ui;
 };

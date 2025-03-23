@@ -1,6 +1,9 @@
 #include "mainwindow.h"
 #include "./ui_mainwindow.h"
+#include "parser/objparser.h"
 #include <iostream>
+#include <QFileDialog>
+#include <QMessageBox>
 
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
@@ -17,6 +20,13 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->editBlue, QOverload<double>::of(&QDoubleSpinBox::valueChanged), this, &MainWindow::onColorChange);
     connect(ui->editAlpha, QOverload<double>::of(&QDoubleSpinBox::valueChanged), this, &MainWindow::onColorChange);
 
+    // import obj file
+    connect(ui->importObjFile, &QPushButton::clicked, this, &MainWindow::onImportButtonClicked);
+
+    connect(this, &MainWindow::fileSelected, this, [this](const QString &filePath) {
+        ObjParser parser(filePath.toStdString());
+        parser.printObjFile();
+    });
 }
 
 MainWindow::~MainWindow()
@@ -40,3 +50,16 @@ void MainWindow::onColorChange(double c)
     ui->renderWidget->changeColor(color);
 }
 
+void MainWindow::onImportButtonClicked()
+{
+    // Open a file dialog to select a file
+        QString filePath = QFileDialog::getOpenFileName(this, "Open File", "", "OBJ Files (*.obj)");
+
+        if (!filePath.isEmpty()) {
+            // File selected, process it
+            emit fileSelected(filePath);
+        } else {
+            // No file selected
+            QMessageBox::information(this, "No file selected", "Ok");
+        }
+}
