@@ -21,7 +21,6 @@ class ObjParser
 public:
     ObjParser(const std::string fileName);
 
-    Face parseFaceLine(const std::string& line);
     void printObjFile();
 
 private:
@@ -29,6 +28,8 @@ private:
     std::vector<Vertex> m_Vertices;
     std::vector<Normal> m_Normals;
     std::vector<Face> m_Faces;
+
+    Face parseFaceLine(const std::string& line);
 };
 
 #endif // OBJPARSER_H
