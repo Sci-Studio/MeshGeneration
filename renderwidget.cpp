@@ -4,6 +4,8 @@
 #include "shapes/line.h"
 #include "shapes/point.h"
 #include "shapes/curve.h"
+#include "shapes/triangles.h"
+#include "parser/objparser.h"
 
 #include <string>
 #include <QMatrix4x4>
@@ -21,45 +23,14 @@ void RenderWidget::initializeGL()
 {
     initializeOpenGLFunctions();
 
+    const std::vector<Vertex> meshPoints = {
+        {  0.5f,  0.3f, 0.0f },
+        {  0.0f,  0.5f, 0.0f },
+        {  0.5f,  0.5f, 0.0f },
 
-    float positions[8] = {
-        -0.5f, -0.5f,
-         0.5f, -0.5f,
-         0.5f,  0.5f,
-        -0.5f,  0.5f
-    };
-
-    float horLineVert[] = {
-        -0.7f,  -0.7f, 0.0f,
-         0.7f,  -0.7f, 0.0f
-    };
-
-    float vertLineVert[] = {
-        -0.7f,  -0.7f, 0.0f,
-        -0.7f,   0.7f, 0.0f
-    };
-
-    float newSquare[8] = {
-        -0.7f, -0.3f,
-        -0.5f, -0.3f,
-        -0.5f,  0.3f,
-        -0.7f,  0.3f
-    };
-
-    float points[] = {
-        -0.5f,  0.5f, 0.0f,  // Point 1
-         0.0f,  0.0f, 0.0f,  // Point 2
-         0.5f, -0.5f, 0.0f   // Point 3
-    };
-
-    float airfoilCurve[] = {
-        -0.9f,  0.1f, 0.0f,
-        -0.6f,  0.3f, 0.0f,
-        -0.3f,  0.2f, 0.0f,
-         0.0f,  0.0f, 0.0f,
-         0.3f, -0.1f, 0.0f,
-         0.6f, -0.2f, 0.0f,
-         0.9f, -0.1f, 0.0f
+        { -0.3f, -0.3f, 0.0f },
+        {  0.3f, -0.3f, 0.0f },
+        {  0.3f,  0.3f, 0.0f },
     };
 
     color.resize(4);
@@ -68,13 +39,8 @@ void RenderWidget::initializeGL()
     color[2] = 0.8f;
     color[3] = 1.0f;
 
-    shapes.resize(2);
-//    shapes[0] = new Rectangle(*this, positions);
-//    shapes[1] = new Line(*this, horLineVert);
-//    shapes[2] = new Line(*this, vertLineVert);
-//    shapes[3] = new Rectangle(*this, newSquare);
-    shapes[0] = new Curve(*this, airfoilCurve);
-    shapes[1] = new Point(*this, airfoilCurve);
+    shapes.resize(1);
+    shapes[0] = new Triangles(*this, meshPoints);
 
     shader = new Shader(*this, "/home/hisham/dev_latest/MeshGen/basic.vert");
     shader->Bind();
@@ -118,4 +84,54 @@ void RenderWidget::changeColor(std::vector<float> color)
     this->color[2] = color[2];
     this->color[3] = color[3];
     update();
+}
+
+void deprecatedRender()
+{
+    float positions[8] = {
+        -0.5f, -0.5f,
+         0.5f, -0.5f,
+         0.5f,  0.5f,
+        -0.5f,  0.5f
+    };
+
+    float horLineVert[] = {
+        -0.7f,  -0.7f, 0.0f,
+         0.7f,  -0.7f, 0.0f
+    };
+
+    float vertLineVert[] = {
+        -0.7f,  -0.7f, 0.0f,
+        -0.7f,   0.7f, 0.0f
+    };
+
+    float newSquare[8] = {
+        -0.7f, -0.3f,
+        -0.5f, -0.3f,
+        -0.5f,  0.3f,
+        -0.7f,  0.3f
+    };
+
+    float points[] = {
+        -0.5f,  0.5f, 0.0f,  // Point 1
+         0.0f,  0.0f, 0.0f,  // Point 2
+         0.5f, -0.5f, 0.0f   // Point 3
+    };
+
+    float airfoilCurve[] = {
+        -0.9f,  0.1f, 0.0f,
+        -0.6f,  0.3f, 0.0f,
+        -0.3f,  0.2f, 0.0f,
+         0.0f,  0.0f, 0.0f,
+         0.3f, -0.1f, 0.0f,
+         0.6f, -0.2f, 0.0f,
+         0.9f, -0.1f, 0.0f
+    };
+
+    //    shapes[0] = new Rectangle(*this, positions);
+    //    shapes[1] = new Line(*this, horLineVert);
+    //    shapes[2] = new Line(*this, vertLineVert);
+    //    shapes[3] = new Rectangle(*this, newSquare);
+    //    shapes[0] = new Curve(*this, airfoilCurve);
+    //    shapes[1] = new Point(*this, airfoilCurve);
 }
