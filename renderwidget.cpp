@@ -14,7 +14,7 @@
 RenderWidget::RenderWidget(QWidget *parent) :
     QOpenGLWidget(parent)
 {
-    parser = new ObjParser();
+//    parser = new ObjParser();
 }
 
 RenderWidget::~RenderWidget()
@@ -65,6 +65,16 @@ void RenderWidget::initializeGL()
         {  0.5f,  0.5f, -0.5f },
     };
 
+    parser = new ObjParser("/home/hisham/dev_latest/Data/hing-final.obj");
+//    parser = new ObjParser("/home/hisham/dev_latest/Data/rectangle-prism-final.obj");
+//    parser = new ObjParser("/home/hisham/dev_latest/Data/stem-final.obj");
+
+//    parser = new ObjParser("/home/hisham/freecad_models/example1-BodyFillet002.obj");
+//    parser = new ObjParser("/home/hisham/freecad_models/stem-final.obj");
+//    parser = new ObjParser("/home/hisham/dev_latest/Data/sphere-final.obj");
+
+    parser->parseObjFile();
+
     color.resize(4);
     color[0] = 0.1f;
     color[1] = 0.3f;
@@ -73,7 +83,9 @@ void RenderWidget::initializeGL()
 
     rotateCoordinates = {45.0f, 0, 1, 0};
     shapes.resize(1);
-    shapes[0] = new Triangles(*this, meshPoints);
+//    shapes[0] = new Triangles(*this, meshPoints);
+    shapes[0] = new Triangles(*this, parser->getRenderVertices());
+
 
     shader = new Shader(*this, "/home/hisham/dev_latest/MeshGeneration/basic.vert");
     shader->Bind();
@@ -138,11 +150,23 @@ void RenderWidget::rotate(RotateCoordinates rotateCoordinates)
     update();
 }
 
-void RenderWidget::readObjFile(std::string fileName)
+void RenderWidget::importObjFile(std::string fileName)
 {
     parser->setFileName(fileName);
     parser->parseObjFile();
-    parser->printObjFile();
+//    for(unsigned int i = 0; i < shapes.size(); i++) {
+//        const auto& element = shapes[i];
+//        element->UnBind();
+//    }
+//    float newSquare[8] = {
+//        -0.7f, -0.3f,
+//        -0.5f, -0.3f,
+//        -0.5f,  0.3f,
+//        -0.7f,  0.3f
+//    };
+//    shapes[0] = new Rectangle(*this, newSquare);
+//    modelView.scale(parser->getScaleFactor());
+    update();
 }
 
 void deprecatedRender()

@@ -24,13 +24,28 @@ public:
 
     void parseObjFile();
     void printObjFile();
+
     void setFileName(std::string fileName);
+
+    std::vector<Vertex> getVertices();
+    std::vector<Normal> getNormals();
+    std::vector<Face> getFaces();
+
+    std::vector<Vertex> getRenderVertices();
+    std::vector<Normal> getRenderNormals();
+
+    float getScaleFactor();
 
 private:
     std::string m_FileName;
     std::vector<Vertex> m_Vertices;
     std::vector<Normal> m_Normals;
     std::vector<Face> m_Faces;
+
+    std::vector<Vertex> m_RenderVertices;
+    std::vector<Normal> m_RenderNormals;
+
+    float m_ScaleFactor;
 
     Face parseFaceLine(const std::string& line);
 };

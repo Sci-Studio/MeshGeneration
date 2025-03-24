@@ -5,6 +5,12 @@
 #include <fstream>
 #include <QDebug>
 
+float minX = std::numeric_limits<float>::max();
+float maxX = -std::numeric_limits<float>::max();
+float minY = std::numeric_limits<float>::max();
+float maxY = -std::numeric_limits<float>::max();
+float minZ = std::numeric_limits<float>::max();
+float maxZ = -std::numeric_limits<float>::max();
 
 ObjParser::ObjParser() {}
 
@@ -15,6 +21,7 @@ void ObjParser::setFileName(std::string fileName)
 {
     m_FileName = fileName;
 }
+
 void ObjParser::parseObjFile()
 {
     std::ifstream objFile(m_FileName);
@@ -45,6 +52,22 @@ void ObjParser::parseObjFile()
     }
 
     objFile.close();
+
+    float scaleFactor = getScaleFactor();
+    for (const Face& face : m_Faces) {
+        for (int i = 0; i < face.vertexIndices.size(); i++) {
+            Vertex v = m_Vertices[face.vertexIndices[i] - 1];
+            v.x *= scaleFactor;
+            v.y *= scaleFactor;
+            v.z *= scaleFactor;
+            m_RenderVertices.push_back(v);
+
+            if (!m_Normals.empty()) {
+                Normal n = m_Normals[face.normalIndices[i]];
+                m_RenderNormals.push_back(n);
+            }
+        }
+    }
 }
 
 Face ObjParser::parseFaceLine(const std::string& line)
@@ -106,4 +129,50 @@ void ObjParser::printObjFile() {
             qDebug() << f.vertexIndices[i] << "//" << f.normalIndices[i] << " ";
         }
     }
+}
+
+std::vector<Vertex> ObjParser::getVertices()
+{
+    return m_Vertices;
+}
+
+std::vector<Normal> ObjParser::getNormals()
+{
+    return m_Normals;
+}
+
+std::vector<Face> ObjParser::getFaces()
+{
+    return m_Faces;
+}
+
+std::vector<Vertex> ObjParser::getRenderVertices()
+{
+    return m_RenderVertices;
+}
+
+std::vector<Normal> ObjParser::getRenderNormals()
+{
+    return m_RenderNormals;
+}
+
+float ObjParser::getScaleFactor()
+{
+    for (const Vertex& v : m_Vertices) {
+        minX = std::min(minX, v.x);
+        maxX = std::max(maxX, v.x);
+        minY = std::min(minY, v.y);
+        maxY = std::max(maxY, v.y);
+        minZ = std::min(minZ, v.z);
+        maxZ = std::max(maxZ, v.z);
+    }
+
+    float sizeX = maxX - minX;
+    float sizeY = maxY - minY;
+    float sizeZ = maxZ - minZ;
+
+    // Find the largest dimension
+    float maxSize = std::max({sizeX, sizeY, sizeZ});
+
+    return 2.0f / maxSize;
 }

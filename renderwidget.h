@@ -22,7 +22,7 @@ public:
 
     void changeColor(std::vector<float> color);
     void rotate(RotateCoordinates rotateCoordinates);
-    void readObjFile(std::string fileName);
+    void importObjFile(std::string fileName);
 
 protected:
     void initializeGL() override;
