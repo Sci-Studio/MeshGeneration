@@ -19,12 +19,15 @@ struct Face {
 class ObjParser
 {
 public:
+    ObjParser();
     ObjParser(const std::string fileName);
 
+    void parseObjFile();
     void printObjFile();
+    void setFileName(std::string fileName);
 
 private:
-    std::string m_fileName;
+    std::string m_FileName;
     std::vector<Vertex> m_Vertices;
     std::vector<Normal> m_Normals;
     std::vector<Face> m_Faces;

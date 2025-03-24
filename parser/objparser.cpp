@@ -3,15 +3,24 @@
 #include <sstream>
 #include <iostream>
 #include <fstream>
+#include <QDebug>
 
+
+ObjParser::ObjParser() {}
 
 ObjParser::ObjParser(const std::string fileName)
-    : m_fileName(fileName)
+    : m_FileName(fileName) {}
+
+void ObjParser::setFileName(std::string fileName)
 {
-    std::ifstream objFile(fileName);
+    m_FileName = fileName;
+}
+void ObjParser::parseObjFile()
+{
+    std::ifstream objFile(m_FileName);
 
     if(!objFile.is_open()) {
-        std::cerr << "Failed to open the OBJ file!" << std::endl;
+        qDebug() << "Failed to open the OBJ file!";
         return;
     }
 
@@ -82,20 +91,19 @@ Face ObjParser::parseFaceLine(const std::string& line)
 void ObjParser::printObjFile() {
     std::cout << "Vertices:\n";
     for (const auto& v : m_Vertices) {
-        std::cout << "v " << v.x << " " << v.y << " " << v.z << "\n";
+        qDebug() << "v " << v.x << " " << v.y << " " << v.z;
     }
 
     std::cout << "\nNormals:\n";
     for (const auto& n : m_Normals) {
-        std::cout << "vn " << n.x << " " << n.y << " " << n.z << "\n";
+        qDebug() << "vn " << n.x << " " << n.y << " " << n.z;
     }
 
-    std::cout << "\nFaces:\n";
+    qDebug() << "\nFaces:\n";
     for (const auto& f : m_Faces) {
-        std::cout << "f ";
+        qDebug() << "f ";
         for (size_t i = 0; i < f.vertexIndices.size(); i++) {
-            std::cout << f.vertexIndices[i] << "//" << f.normalIndices[i] << " ";
+            qDebug() << f.vertexIndices[i] << "//" << f.normalIndices[i] << " ";
         }
-        std::cout << "\n";
     }
 }

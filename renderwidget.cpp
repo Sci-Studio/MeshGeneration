@@ -11,13 +11,17 @@
 #include <QMatrix4x4>
 
 
-
-
 RenderWidget::RenderWidget(QWidget *parent) :
     QOpenGLWidget(parent)
 {
-
+    parser = new ObjParser();
 }
+
+RenderWidget::~RenderWidget()
+{
+    delete parser;
+}
+
 
 void RenderWidget::initializeGL()
 {
@@ -111,6 +115,7 @@ void RenderWidget::paintGL()
 
 }
 
+
 void RenderWidget::changeColor(std::vector<float> color)
 {
     if (color.size() > 4)
@@ -131,6 +136,13 @@ void RenderWidget::rotate(RotateCoordinates rotateCoordinates)
     this->rotateCoordinates.y = rotateCoordinates.y;
     this->rotateCoordinates.z = rotateCoordinates.z;
     update();
+}
+
+void RenderWidget::readObjFile(std::string fileName)
+{
+    parser->setFileName(fileName);
+    parser->parseObjFile();
+    parser->printObjFile();
 }
 
 void deprecatedRender()
