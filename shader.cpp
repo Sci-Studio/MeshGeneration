@@ -116,3 +116,8 @@ void Shader::SetUniform4f(const std::string &name, float f0, float f1, float f2,
 {
     GLCall(m_Context.glUniform4f(GetUniformLocation(name), f0, f1, f2, f3), m_Context);
 }
+
+void Shader::SetUniformMatrix(const std::string &name, QMatrix4x4 viewMatrix)
+{
+    GLCall(m_Context.glUniformMatrix4fv(GetUniformLocation(name), 1, GL_FALSE, viewMatrix.constData()), m_Context)
+}

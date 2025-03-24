@@ -27,6 +27,22 @@ MainWindow::MainWindow(QWidget *parent)
         ObjParser parser(filePath.toStdString());
         parser.printObjFile();
     });
+
+    connect(ui->rotateLeft, &QPushButton::clicked, this, [this]() {
+        ui->renderWidget->rotate({-5.0f, 0, 1, 0});
+    });
+
+    connect(ui->rotateRight, &QPushButton::clicked, this, [this]() {
+        ui->renderWidget->rotate({5.0f, 0, 1, 0});
+    });
+
+    connect(ui->rotateTop, &QPushButton::clicked, this, [this]() {
+        ui->renderWidget->rotate({5.0f, 1, 0, 0});
+    });
+
+    connect(ui->rotateDown, &QPushButton::clicked, this, [this]() {
+        ui->renderWidget->rotate({-5.0f, 1, 0, 0});
+    });
 }
 
 MainWindow::~MainWindow()

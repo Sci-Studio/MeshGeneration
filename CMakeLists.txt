@@ -43,6 +43,8 @@ set(PROJECT_SOURCES
         shapes/point.h
         shapes/curve.cpp
         shapes/curve.h
+        shapes/triangles.cpp
+        shapes/triangles.h
         parser/objparser.cpp
         parser/objparser.h
 )
