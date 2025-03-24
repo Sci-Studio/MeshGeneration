@@ -50,6 +50,15 @@ void RenderWidget::initializeGL()
         { -0.5f, -0.5f,  0.5f },
         { -0.5f,  0.5f,  0.5f },
         { -0.5f,  0.5f, -0.5f },
+
+        // right side view
+        {  0.5f, -0.5f,  0.5f },
+        {  0.5f, -0.5f, -0.5f },
+        {  0.5f,  0.5f, -0.5f },
+
+        {  0.5f, -0.5f,  0.5f },
+        {  0.5f,  0.5f,  0.5f },
+        {  0.5f,  0.5f, -0.5f },
     };
 
     color.resize(4);
@@ -58,6 +67,7 @@ void RenderWidget::initializeGL()
     color[2] = 0.8f;
     color[3] = 1.0f;
 
+    rotateCoordinates = {45.0f, 0, 1, 0};
     shapes.resize(1);
     shapes[0] = new Triangles(*this, meshPoints);
 
@@ -91,7 +101,7 @@ void RenderWidget::paintGL()
     // Set the model-view matrix
     modelView.setToIdentity();
     modelView.translate(0.0f, 0.0f, -5.0f); // Move the object back
-    modelView.rotate(105.0f, 0, 1, 0);
+    modelView.rotate(rotateCoordinates.angle, rotateCoordinates.x, rotateCoordinates.y, rotateCoordinates.z);
     shader->SetUniformMatrix("mvpMatrix", projection * modelView);
 
     for(unsigned int i = 0; i < shapes.size(); i++) {
@@ -111,6 +121,15 @@ void RenderWidget::changeColor(std::vector<float> color)
     this->color[1] = color[1];
     this->color[2] = color[2];
     this->color[3] = color[3];
+    update();
+}
+
+void RenderWidget::rotate(RotateCoordinates rotateCoordinates)
+{
+    this->rotateCoordinates.angle += rotateCoordinates.angle;
+    this->rotateCoordinates.x = rotateCoordinates.x;
+    this->rotateCoordinates.y = rotateCoordinates.y;
+    this->rotateCoordinates.z = rotateCoordinates.z;
     update();
 }
 
