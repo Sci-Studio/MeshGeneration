@@ -4,6 +4,8 @@
 
 #include <string>
 #include <unordered_map>
+#include <QMatrix4x4>
+
 
 struct ShaderProgramSource
 {
@@ -28,6 +30,7 @@ public:
 
     // Set uniforms
     void SetUniform4f(const std::string& name, float f0, float f1, float f2, float f3);
+    void SetUniformMatrix(const std::string& name, QMatrix4x4 viewMatrix);
 
 private:
     ShaderProgramSource ParseShader(const std::string& filepath);

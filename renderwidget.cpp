@@ -24,13 +24,32 @@ void RenderWidget::initializeGL()
     initializeOpenGLFunctions();
 
     const std::vector<Vertex> meshPoints = {
-        {  0.5f,  0.3f, 0.0f },
-        {  0.0f,  0.5f, 0.0f },
-        {  0.5f,  0.5f, 0.0f },
+        // Front Face
+        { -0.5f, -0.5f,  0.5f },
+        {  0.5f, -0.5f,  0.5f },
+        { -0.5f,  0.5f,  0.5f },
 
-        { -0.3f, -0.3f, 0.0f },
-        {  0.3f, -0.3f, 0.0f },
-        {  0.3f,  0.3f, 0.0f },
+        {  0.5f, -0.5f,  0.5f },
+        {  0.5f,  0.5f,  0.5f },
+        { -0.5f,  0.5f,  0.5f },
+
+        // Rear Face
+        { -0.5f, -0.5f, -0.5f },
+        {  0.5f, -0.5f, -0.5f },
+        { -0.5f,  0.5f, -0.5f },
+
+        {  0.5f, -0.5f, -0.5f },
+        {  0.5f,  0.5f, -0.5f },
+        { -0.5f,  0.5f, -0.5f },
+
+        // left side view
+        { -0.5f, -0.5f,  0.5f },
+        { -0.5f, -0.5f, -0.5f },
+        { -0.5f,  0.5f, -0.5f },
+
+        { -0.5f, -0.5f,  0.5f },
+        { -0.5f,  0.5f,  0.5f },
+        { -0.5f,  0.5f, -0.5f },
     };
 
     color.resize(4);
@@ -42,7 +61,7 @@ void RenderWidget::initializeGL()
     shapes.resize(1);
     shapes[0] = new Triangles(*this, meshPoints);
 
-    shader = new Shader(*this, "/home/hisham/dev_latest/MeshGen/basic.vert");
+    shader = new Shader(*this, "/home/hisham/dev_latest/MeshGeneration/basic.vert");
     shader->Bind();
     shader->SetUniform4f("u_Color", color[0], color[1], color[2], color[3]);
 
@@ -57,6 +76,9 @@ void RenderWidget::initializeGL()
 void RenderWidget::resizeGL(int w, int h)
 {
     glViewport(0, 0, w, h);
+    // Update the projection matrix
+    projection.setToIdentity();
+    projection.perspective(45.0f, static_cast<float>(w) / h, 0.1f, 100.0f);
 }
 
 void RenderWidget::paintGL()
@@ -65,6 +87,12 @@ void RenderWidget::paintGL()
 
     shader->Bind();
     shader->SetUniform4f("u_Color", color[0], color[1], color[2], color[3]);
+
+    // Set the model-view matrix
+    modelView.setToIdentity();
+    modelView.translate(0.0f, 0.0f, -5.0f); // Move the object back
+    modelView.rotate(105.0f, 0, 1, 0);
+    shader->SetUniformMatrix("mvpMatrix", projection * modelView);
 
     for(unsigned int i = 0; i < shapes.size(); i++) {
         const auto& element = shapes[i];
