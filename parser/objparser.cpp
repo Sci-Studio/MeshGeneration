@@ -1,7 +1,6 @@
 #include "objparser.h"
 
 #include <sstream>
-#include <iostream>
 #include <fstream>
 #include <QDebug>
 
@@ -112,12 +111,12 @@ Face ObjParser::parseFaceLine(const std::string& line)
 }
 
 void ObjParser::printObjFile() {
-    std::cout << "Vertices:\n";
+    qDebug() << "Vertices:";
     for (const auto& v : m_Vertices) {
         qDebug() << "v " << v.x << " " << v.y << " " << v.z;
     }
 
-    std::cout << "\nNormals:\n";
+    qDebug() << "\nNormals:\n";
     for (const auto& n : m_Normals) {
         qDebug() << "vn " << n.x << " " << n.y << " " << n.z;
     }
