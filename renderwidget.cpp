@@ -14,7 +14,6 @@
 RenderWidget::RenderWidget(QWidget *parent) :
     QOpenGLWidget(parent)
 {
-//    parser = new ObjParser();
 }
 
 RenderWidget::~RenderWidget()
@@ -68,10 +67,6 @@ void RenderWidget::initializeGL()
     parser = new ObjParser("/home/hisham/dev_latest/Data/hing-final.obj");
 //    parser = new ObjParser("/home/hisham/dev_latest/Data/rectangle-prism-final.obj");
 //    parser = new ObjParser("/home/hisham/dev_latest/Data/stem-final.obj");
-
-//    parser = new ObjParser("/home/hisham/freecad_models/example1-BodyFillet002.obj");
-//    parser = new ObjParser("/home/hisham/freecad_models/stem-final.obj");
-//    parser = new ObjParser("/home/hisham/dev_latest/Data/sphere-final.obj");
 
     parser->parseObjFile();
 
@@ -154,18 +149,6 @@ void RenderWidget::importObjFile(std::string fileName)
 {
     parser->setFileName(fileName);
     parser->parseObjFile();
-//    for(unsigned int i = 0; i < shapes.size(); i++) {
-//        const auto& element = shapes[i];
-//        element->UnBind();
-//    }
-//    float newSquare[8] = {
-//        -0.7f, -0.3f,
-//        -0.5f, -0.3f,
-//        -0.5f,  0.3f,
-//        -0.7f,  0.3f
-//    };
-//    shapes[0] = new Rectangle(*this, newSquare);
-//    modelView.scale(parser->getScaleFactor());
     update();
 }
 
