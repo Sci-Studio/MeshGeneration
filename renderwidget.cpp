@@ -11,13 +11,16 @@
 #include <QMatrix4x4>
 
 
-
-
 RenderWidget::RenderWidget(QWidget *parent) :
     QOpenGLWidget(parent)
 {
-
 }
+
+RenderWidget::~RenderWidget()
+{
+    delete parser;
+}
+
 
 void RenderWidget::initializeGL()
 {
@@ -61,6 +64,12 @@ void RenderWidget::initializeGL()
         {  0.5f,  0.5f, -0.5f },
     };
 
+    parser = new ObjParser("/home/hisham/dev_latest/Data/hing-final.obj");
+//    parser = new ObjParser("/home/hisham/dev_latest/Data/rectangle-prism-final.obj");
+//    parser = new ObjParser("/home/hisham/dev_latest/Data/stem-final.obj");
+
+    parser->parseObjFile();
+
     color.resize(4);
     color[0] = 0.1f;
     color[1] = 0.3f;
@@ -69,7 +78,9 @@ void RenderWidget::initializeGL()
 
     rotateCoordinates = {45.0f, 0, 1, 0};
     shapes.resize(1);
-    shapes[0] = new Triangles(*this, meshPoints);
+//    shapes[0] = new Triangles(*this, meshPoints);
+    shapes[0] = new Triangles(*this, parser->getRenderVertices());
+
 
     shader = new Shader(*this, "/home/hisham/dev_latest/MeshGeneration/basic.vert");
     shader->Bind();
@@ -111,6 +122,7 @@ void RenderWidget::paintGL()
 
 }
 
+
 void RenderWidget::changeColor(std::vector<float> color)
 {
     if (color.size() > 4)
@@ -130,6 +142,13 @@ void RenderWidget::rotate(RotateCoordinates rotateCoordinates)
     this->rotateCoordinates.x = rotateCoordinates.x;
     this->rotateCoordinates.y = rotateCoordinates.y;
     this->rotateCoordinates.z = rotateCoordinates.z;
+    update();
+}
+
+void RenderWidget::importObjFile(std::string fileName)
+{
+    parser->setFileName(fileName);
+    parser->parseObjFile();
     update();
 }
 

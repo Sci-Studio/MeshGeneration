@@ -24,8 +24,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->importObjFile, &QPushButton::clicked, this, &MainWindow::onImportButtonClicked);
 
     connect(this, &MainWindow::fileSelected, this, [this](const QString &filePath) {
-        ObjParser parser(filePath.toStdString());
-        parser.printObjFile();
+        ui->renderWidget->importObjFile(filePath.toStdString());
     });
 
     connect(ui->rotateLeft, &QPushButton::clicked, this, [this]() {

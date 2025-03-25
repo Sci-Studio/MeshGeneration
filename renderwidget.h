@@ -4,6 +4,7 @@
 #include "pch.h"
 #include "shader.h"
 #include "shapes/shape.h"
+#include "parser/objparser.h"
 
 #include <QMatrix4x4>
 #include <QOpenGLWidget>
@@ -17,8 +18,11 @@ class RenderWidget: public QOpenGLWidget, protected QOpenGLClass
 {
 public:
     RenderWidget(QWidget *parent = nullptr);
+    ~RenderWidget();
+
     void changeColor(std::vector<float> color);
     void rotate(RotateCoordinates rotateCoordinates);
+    void importObjFile(std::string fileName);
 
 protected:
     void initializeGL() override;
@@ -34,5 +38,7 @@ private:
 
     QMatrix4x4 projection;
     QMatrix4x4 modelView;
+
+    ObjParser* parser;
 };
 #endif // TRIANGLESHADER_H

@@ -11,8 +11,8 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets REQUIRED)
-find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
+find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets Gui OpenGL OpenGLWidgets REQUIRED)
+find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets Gui OpenGL OpenGLWidgets REQUIRED)
 find_package(OpenGL REQUIRED)
 
 set(PROJECT_SOURCES
@@ -72,10 +72,16 @@ else()
     endif()
 endif()
 
+target_link_libraries(MeshGeneration
+    PRIVATE
+    Qt${QT_VERSION_MAJOR}::Widgets
+    Qt${QT_VERSION_MAJOR}::Gui
+    Qt${QT_VERSION_MAJOR}::OpenGL
+    Qt${QT_VERSION_MAJOR}::OpenGLWidgets
+    OpenGL::GLU)
+
 # Specify precompiled headers
 target_precompile_headers(MeshGeneration PRIVATE pch.h)
-
-target_link_libraries(MeshGeneration PRIVATE Qt${QT_VERSION_MAJOR}::Widgets OpenGL::GLU)
 
 set_target_properties(MeshGeneration PROPERTIES
     MACOSX_BUNDLE_GUI_IDENTIFIER my.example.com
