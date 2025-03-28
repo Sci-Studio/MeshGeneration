@@ -64,7 +64,7 @@ void RenderWidget::initializeGL()
         {  0.5f,  0.5f, -0.5f },
     };
 
-    parser = new ObjParser("/home/hisham/dev_latest/Data/hing-final.obj");
+    parser = new ObjParser("/home/hisham/dev_latest/GeometryMeshing/Data/hing-final.obj");
 //    parser = new ObjParser("/home/hisham/dev_latest/Data/rectangle-prism-final.obj");
 //    parser = new ObjParser("/home/hisham/dev_latest/Data/stem-final.obj");
 
@@ -82,7 +82,7 @@ void RenderWidget::initializeGL()
     shapes[0] = new Triangles(*this, parser->getRenderVertices());
 
 
-    shader = new Shader(*this, "/home/hisham/dev_latest/MeshGeneration/basic.vert");
+    shader = new Shader(*this, "./basic.vert");
     shader->Bind();
     shader->SetUniform4f("u_Color", color[0], color[1], color[2], color[3]);
 
