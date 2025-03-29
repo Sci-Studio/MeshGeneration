@@ -94,18 +94,24 @@ void RenderWidget::importObjFile(std::string fileName)
 {
     parser->setFileName(fileName);
     parser->parseObjFile();
+    updateVertexData(true);
     update();
 }
 
-void RenderWidget::updateVertexData()
+void RenderWidget::updateVertexData(bool modifyData)
 {
     std::vector<Vertex> vertices = parser->getRenderVertices();
     m_NoOfVertices = vertices.size();
+    m_FloatData.clear();
 
     for (const auto& v : vertices) {
         m_FloatData.push_back(v.x);
         m_FloatData.push_back(v.y);
         m_FloatData.push_back(v.z);
+    }
+
+    if (modifyData) {
+        vb->UpdateVertexData(m_FloatData.data(), m_NoOfVertices * no_Coordinates_3D * sizeof(float));
     }
 }
 

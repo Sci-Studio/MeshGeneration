@@ -55,6 +55,6 @@ private:
 
     ObjParser* parser;
 
-    void updateVertexData();
+    void updateVertexData(bool modifyData = false);
 };
 #endif // TRIANGLESHADER_H
