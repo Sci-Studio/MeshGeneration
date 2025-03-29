@@ -21,30 +21,24 @@ void RenderWidget::initializeGL()
 {
     initializeOpenGLFunctions();
 
-    parser = new ObjParser("/home/hisham/dev_latest/GeometryMeshing/Data/hing-final.obj");
-//    parser = new ObjParser("/home/hisham/dev_latest/GeometryMeshing/Data/rectangle-prism-final.obj");
-//    parser = new ObjParser("/home/hisham/dev_latest/Data/stem-final.obj");
-
-    parser->parseObjFile();
-    updateVertexData();
+    parser = new ObjParser();
 
     m_Color = { 0.1f, 0.3f, 0.8f, 1.0f };
     m_RotateCoordinates = { 45.0f, 0, 1, 0 };
+
+    va = new VertexArray(*this);
+    vb = new VertexBuffer(*this, nullptr, m_NoOfVertices);
+    layout = new VertexBufferLayout();
+    layout->Push<float>(no_Coordinates_3D);
+    va->AddBuffer(*vb, *layout);
 
     shader = new Shader(*this, "./basic.vert");
     shader->Bind();
     shader->SetUniform4f("u_Color", m_Color.red, m_Color.green, m_Color.blue, m_Color.alpha);
 
-    va = new VertexArray(*this);
-    vb = new VertexBuffer(*this, m_FloatData.data(), m_NoOfVertices * no_Coordinates_3D * sizeof(float));
-    layout = new VertexBufferLayout();
-    layout->Push<float>(no_Coordinates_3D);
-    va->AddBuffer(*vb, *layout);
-
-    shader->Unbind();
     va->UnBind();
     vb->UnBind();
-
+    shader->Unbind();
 }
 
 void RenderWidget::resizeGL(int w, int h)
@@ -68,10 +62,12 @@ void RenderWidget::paintGL()
     modelView.rotate(m_RotateCoordinates.angle, m_RotateCoordinates.x, m_RotateCoordinates.y, m_RotateCoordinates.z);
     shader->SetUniformMatrix("mvpMatrix", projection * modelView);
 
+    updateVertexData();
+
     va->Bind();
     vb->Bind();
-    GLCall(glDrawArrays(GL_TRIANGLES, 0, m_NoOfVertices), *this);
 
+    GLCall(glDrawArrays(GL_TRIANGLES, 0, m_NoOfVertices), *this);
 }
 
 
@@ -94,11 +90,10 @@ void RenderWidget::importObjFile(std::string fileName)
 {
     parser->setFileName(fileName);
     parser->parseObjFile();
-    updateVertexData(true);
     update();
 }
 
-void RenderWidget::updateVertexData(bool modifyData)
+void RenderWidget::updateVertexData()
 {
     std::vector<Vertex> vertices = parser->getRenderVertices();
     m_NoOfVertices = vertices.size();
@@ -110,9 +105,8 @@ void RenderWidget::updateVertexData(bool modifyData)
         m_FloatData.push_back(v.z);
     }
 
-    if (modifyData) {
-        vb->UpdateVertexData(m_FloatData.data(), m_NoOfVertices * no_Coordinates_3D * sizeof(float));
-    }
+    vb->UpdateVertexData(m_FloatData.data(), m_NoOfVertices * no_Coordinates_3D * sizeof(float));
+
 }
 
 void deprecatedRender()

@@ -44,7 +44,7 @@ private:
     RotateCoordinates m_RotateCoordinates;
 
     std::vector<float> m_FloatData;
-    unsigned int m_NoOfVertices;
+    unsigned int m_NoOfVertices = 0;
 
     VertexArray* va;
     VertexBuffer* vb;
@@ -55,6 +55,6 @@ private:
 
     ObjParser* parser;
 
-    void updateVertexData(bool modifyData = false);
+    void updateVertexData();
 };
 #endif // TRIANGLESHADER_H
