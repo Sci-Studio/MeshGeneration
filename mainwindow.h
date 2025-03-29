@@ -14,9 +14,7 @@ class MainWindow : public QMainWindow
 public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
-    void onRenderButtonClicked();
     void onColorChange();
-    void onGenerateButtonClicked();
 
 signals:
     void fileSelected(const QString &filePath); // Custom signal

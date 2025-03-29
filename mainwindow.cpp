@@ -11,9 +11,7 @@ MainWindow::MainWindow(QWidget *parent)
 {
     ui->setupUi(this);
 
-    // Connect the render button to the render action
-    connect(ui->renderShapeButton, &QPushButton::clicked, this, &MainWindow::onRenderButtonClicked);
-
+    showMaximized();
     // Connect the spin box to color change method
     connect(ui->editRed, QOverload<double>::of(&QDoubleSpinBox::valueChanged), this, &MainWindow::onColorChange);
     connect(ui->editGreen, QOverload<double>::of(&QDoubleSpinBox::valueChanged), this, &MainWindow::onColorChange);
@@ -49,10 +47,6 @@ MainWindow::~MainWindow()
     delete ui;
 }
 
-void MainWindow::onRenderButtonClicked()
-{
-
-}
 
 void MainWindow::onColorChange()
 {
@@ -61,14 +55,15 @@ void MainWindow::onColorChange()
 
 void MainWindow::onImportButtonClicked()
 {
-    // Open a file dialog to select a file
-        QString filePath = QFileDialog::getOpenFileName(this, "Open File", "", "OBJ Files (*.obj)");
+    QFileDialog dialog(this);
+    dialog.setOption(QFileDialog::DontUseNativeDialog);
+    dialog.setWindowTitle("Select File");
+    dialog.setMinimumSize(600, 400);
 
-        if (!filePath.isEmpty()) {
-            // File selected, process it
-            emit fileSelected(filePath);
-        } else {
-            // No file selected
-            QMessageBox::information(this, "No file selected", "Ok");
-        }
+    dialog.setNameFilter("OBJ Files (*.obj)");
+
+    if (dialog.exec() == QDialog::Accepted) {
+        QString filePath = dialog.selectedFiles().first();
+        emit fileSelected(filePath);
+    }
 }

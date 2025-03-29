@@ -17,8 +17,8 @@
    <widget class="QLabel" name="editRedLabel">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>20</y>
+      <x>20</x>
+      <y>450</y>
       <width>67</width>
       <height>17</height>
      </rect>
@@ -30,8 +30,8 @@
    <widget class="QLabel" name="editGreentLabel">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>60</y>
+      <x>20</x>
+      <y>490</y>
       <width>67</width>
       <height>17</height>
      </rect>
@@ -43,8 +43,8 @@
    <widget class="QLabel" name="editBlueLabel">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>100</y>
+      <x>20</x>
+      <y>530</y>
       <width>67</width>
       <height>17</height>
      </rect>
@@ -53,25 +53,12 @@
      <string>Blue</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="renderShapeButton">
-    <property name="geometry">
-     <rect>
-      <x>240</x>
-      <y>20</y>
-      <width>89</width>
-      <height>25</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Render</string>
-    </property>
-   </widget>
    <widget class="RenderWidget" name="renderWidget">
     <property name="geometry">
      <rect>
-      <x>120</x>
+      <x>180</x>
       <y>210</y>
-      <width>971</width>
+      <width>911</width>
       <height>421</height>
      </rect>
     </property>
@@ -79,8 +66,8 @@
    <widget class="QDoubleSpinBox" name="editRed">
     <property name="geometry">
      <rect>
-      <x>90</x>
-      <y>20</y>
+      <x>80</x>
+      <y>450</y>
       <width>65</width>
       <height>26</height>
      </rect>
@@ -95,8 +82,8 @@
    <widget class="QDoubleSpinBox" name="editGreen">
     <property name="geometry">
      <rect>
-      <x>90</x>
-      <y>60</y>
+      <x>80</x>
+      <y>490</y>
       <width>65</width>
       <height>26</height>
      </rect>
@@ -114,8 +101,8 @@
    <widget class="QDoubleSpinBox" name="editBlue">
     <property name="geometry">
      <rect>
-      <x>90</x>
-      <y>100</y>
+      <x>80</x>
+      <y>530</y>
       <width>65</width>
       <height>26</height>
      </rect>
@@ -130,8 +117,8 @@
    <widget class="QDoubleSpinBox" name="editAlpha">
     <property name="geometry">
      <rect>
-      <x>90</x>
-      <y>140</y>
+      <x>80</x>
+      <y>570</y>
       <width>65</width>
       <height>26</height>
      </rect>
@@ -146,8 +133,8 @@
    <widget class="QLabel" name="editAlphaLabel">
     <property name="geometry">
      <rect>
-      <x>30</x>
-      <y>140</y>
+      <x>20</x>
+      <y>570</y>
       <width>67</width>
       <height>17</height>
      </rect>
@@ -159,22 +146,22 @@
    <widget class="QPushButton" name="importObjFile">
     <property name="geometry">
      <rect>
-      <x>200</x>
-      <y>70</y>
-      <width>171</width>
-      <height>25</height>
+      <x>20</x>
+      <y>230</y>
+      <width>111</width>
+      <height>21</height>
      </rect>
     </property>
     <property name="text">
-     <string>Import Obj File</string>
+     <string>Import</string>
     </property>
    </widget>
    <widget class="QPushButton" name="rotateLeft">
     <property name="geometry">
      <rect>
-      <x>700</x>
-      <y>140</y>
-      <width>89</width>
+      <x>830</x>
+      <y>60</y>
+      <width>100</width>
       <height>25</height>
      </rect>
     </property>
@@ -185,9 +172,9 @@
    <widget class="QPushButton" name="rotateRight">
     <property name="geometry">
      <rect>
-      <x>860</x>
-      <y>140</y>
-      <width>89</width>
+      <x>1020</x>
+      <y>60</y>
+      <width>100</width>
       <height>25</height>
      </rect>
     </property>
@@ -198,9 +185,9 @@
    <widget class="QPushButton" name="rotateTop">
     <property name="geometry">
      <rect>
-      <x>790</x>
-      <y>100</y>
-      <width>89</width>
+      <x>930</x>
+      <y>30</y>
+      <width>100</width>
       <height>25</height>
      </rect>
     </property>
@@ -211,9 +198,9 @@
    <widget class="QPushButton" name="rotateDown">
     <property name="geometry">
      <rect>
-      <x>790</x>
-      <y>170</y>
-      <width>89</width>
+      <x>930</x>
+      <y>90</y>
+      <width>100</width>
       <height>25</height>
      </rect>
     </property>
