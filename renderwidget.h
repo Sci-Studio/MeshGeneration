@@ -3,11 +3,15 @@
 
 #include "pch.h"
 #include "shader.h"
-#include "shapes/shape.h"
+#include "vertexbuffer.h"
+#include "vertexarray.h"
+#include "vertexbufferlayout.h"
 #include "parser/objparser.h"
 
 #include <QMatrix4x4>
 #include <QOpenGLWidget>
+
+const unsigned int no_Coordinates_3D = 3;
 
 struct RotateCoordinates {
     float angle;
@@ -36,13 +40,21 @@ protected:
 private:
     Shader* shader;
 
-    std::vector<Shape*> shapes;
     RGBAlpha m_Color;
     RotateCoordinates m_RotateCoordinates;
+
+    std::vector<float> m_FloatData;
+    unsigned int m_NoOfVertices;
+
+    VertexArray* va;
+    VertexBuffer* vb;
+    VertexBufferLayout* layout;
 
     QMatrix4x4 projection;
     QMatrix4x4 modelView;
 
     ObjParser* parser;
+
+    void updateVertexData();
 };
 #endif // TRIANGLESHADER_H
