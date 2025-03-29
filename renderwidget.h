@@ -38,8 +38,7 @@ private:
 
     std::vector<Shape*> shapes;
     RGBAlpha m_Color;
-    std::vector<float> color;
-    RotateCoordinates rotateCoordinates;
+    RotateCoordinates m_RotateCoordinates;
 
     QMatrix4x4 projection;
     QMatrix4x4 modelView;

@@ -71,7 +71,7 @@ void RenderWidget::initializeGL()
     parser->parseObjFile();
 
     m_Color = { 0.1f, 0.3f, 0.8f, 1.0f };
-    rotateCoordinates = { 45.0f, 0, 1, 0 };
+    m_RotateCoordinates = { 45.0f, 0, 1, 0 };
     shapes.resize(1);
     shapes[0] = new Triangles(*this, parser->getRenderVertices());
 
@@ -107,7 +107,7 @@ void RenderWidget::paintGL()
     // Set the model-view matrix
     modelView.setToIdentity();
     modelView.translate(0.0f, 0.0f, -5.0f); // Move the object back
-    modelView.rotate(rotateCoordinates.angle, rotateCoordinates.x, rotateCoordinates.y, rotateCoordinates.z);
+    modelView.rotate(m_RotateCoordinates.angle, m_RotateCoordinates.x, m_RotateCoordinates.y, m_RotateCoordinates.z);
     shader->SetUniformMatrix("mvpMatrix", projection * modelView);
 
     for(unsigned int i = 0; i < shapes.size(); i++) {
@@ -126,10 +126,10 @@ void RenderWidget::changeColor(RGBAlpha color)
 
 void RenderWidget::rotate(RotateCoordinates rotateCoordinates)
 {
-    this->rotateCoordinates.angle += rotateCoordinates.angle;
-    this->rotateCoordinates.x = rotateCoordinates.x;
-    this->rotateCoordinates.y = rotateCoordinates.y;
-    this->rotateCoordinates.z = rotateCoordinates.z;
+    m_RotateCoordinates.angle += rotateCoordinates.angle;
+    m_RotateCoordinates.x = rotateCoordinates.x;
+    m_RotateCoordinates.y = rotateCoordinates.y;
+    m_RotateCoordinates.z = rotateCoordinates.z;
     update();
 }
 
