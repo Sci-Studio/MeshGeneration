@@ -54,15 +54,9 @@ void MainWindow::onRenderButtonClicked()
 
 }
 
-void MainWindow::onColorChange(double c)
+void MainWindow::onColorChange()
 {
-    std::vector<float> color;
-    color.resize(4);
-    color[0] = ui->editRed->value();
-    color[1] = ui->editGreen->value();
-    color[2] = ui->editBlue->value();
-    color[3] = ui->editAlpha->value();
-    ui->renderWidget->changeColor(color);
+    ui->renderWidget->changeColor({ (float)ui->editRed->value(),  (float)ui->editGreen->value(), (float)ui->editBlue->value(), (float)ui->editAlpha->value(), });
 }
 
 void MainWindow::onImportButtonClicked()

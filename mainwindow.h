@@ -15,7 +15,7 @@ public:
     MainWindow(QWidget *parent = nullptr);
     ~MainWindow();
     void onRenderButtonClicked();
-    void onColorChange(double c);
+    void onColorChange();
     void onGenerateButtonClicked();
 
 signals:

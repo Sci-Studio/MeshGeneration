@@ -14,13 +14,17 @@ struct RotateCoordinates {
     unsigned int x, y ,z;
 };
 
+struct RGBAlpha {
+    float red, green, blue, alpha;
+};
+
 class RenderWidget: public QOpenGLWidget, protected QOpenGLClass
 {
 public:
     RenderWidget(QWidget *parent = nullptr);
     ~RenderWidget();
 
-    void changeColor(std::vector<float> color);
+    void changeColor(RGBAlpha color);
     void rotate(RotateCoordinates rotateCoordinates);
     void importObjFile(std::string fileName);
 
@@ -33,6 +37,7 @@ private:
     Shader* shader;
 
     std::vector<Shape*> shapes;
+    RGBAlpha m_Color;
     std::vector<float> color;
     RotateCoordinates rotateCoordinates;
 
