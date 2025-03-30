@@ -42,6 +42,7 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->rotateDown, &QPushButton::clicked, this, [this]() {
         ui->renderWidget->rotate({-5.0f, 1, 0, 0});
     });
+    // test protection rule
 }
 
 MainWindow::~MainWindow()
