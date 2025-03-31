@@ -143,19 +143,6 @@
      <string>Alpha</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="importObjFile">
-    <property name="geometry">
-     <rect>
-      <x>20</x>
-      <y>230</y>
-      <width>111</width>
-      <height>21</height>
-     </rect>
-    </property>
-    <property name="text">
-     <string>Import</string>
-    </property>
-   </widget>
    <widget class="QPushButton" name="rotateLeft">
     <property name="geometry">
      <rect>
@@ -218,6 +205,27 @@
      <height>22</height>
     </rect>
    </property>
+   <property name="defaultUp">
+    <bool>false</bool>
+   </property>
+   <widget class="QMenu" name="menuFile">
+    <property name="enabled">
+     <bool>true</bool>
+    </property>
+    <property name="geometry">
+     <rect>
+      <x>415</x>
+      <y>236</y>
+      <width>200</width>
+      <height>100</height>
+     </rect>
+    </property>
+    <property name="title">
+     <string>File</string>
+    </property>
+    <addaction name="actionOpen"/>
+   </widget>
+   <addaction name="menuFile"/>
   </widget>
   <widget class="QStatusBar" name="statusbar"/>
   <widget class="QToolBar" name="toolBar">
@@ -231,6 +239,11 @@
     <bool>false</bool>
    </attribute>
   </widget>
+  <action name="actionOpen">
+   <property name="text">
+    <string>Open</string>
+   </property>
+  </action>
  </widget>
  <customwidgets>
   <customwidget>
