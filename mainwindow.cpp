@@ -19,11 +19,12 @@ MainWindow::MainWindow(QWidget *parent)
     connect(ui->editAlpha, QOverload<double>::of(&QDoubleSpinBox::valueChanged), this, &MainWindow::onColorChange);
 
     // import obj file
-    connect(ui->importObjFile, &QPushButton::clicked, this, &MainWindow::onImportButtonClicked);
+    connect(ui->actionOpen, &QAction::triggered, this, &MainWindow::onImportButtonClicked);
 
     connect(this, &MainWindow::fileSelected, this, [this](const QString &filePath) {
         ui->renderWidget->importObjFile(filePath.toStdString());
     });
+
 
     connect(ui->rotateLeft, &QPushButton::clicked, this, [this]() {
         ui->renderWidget->rotate({-5.0f, 0, 1, 0});
