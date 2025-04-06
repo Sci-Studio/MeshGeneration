@@ -1,10 +1,5 @@
 #include "renderwidget.h"
 #include "renderer.h"
-#include "shapes/rectangle.h"
-#include "shapes/line.h"
-#include "shapes/point.h"
-#include "shapes/curve.h"
-#include "shapes/triangles.h"
 #include "parser/objparser.h"
 
 #include <string>
@@ -26,6 +21,96 @@ void RenderWidget::initializeGL()
 {
     initializeOpenGLFunctions();
 
+    parser = new ObjParser();
+
+    m_Color = { 0.1f, 0.3f, 0.8f, 1.0f };
+    m_RotateCoordinates = { 45.0f, 0, 1, 0 };
+
+    va = new VertexArray(*this);
+    vb = new VertexBuffer(*this, nullptr, m_NoOfVertices);
+    layout = new VertexBufferLayout();
+    layout->Push<float>(no_Coordinates_3D);
+    va->AddBuffer(*vb, *layout);
+
+    shader = new Shader(*this, "./basic.vert");
+    shader->Bind();
+    shader->SetUniform4f("u_Color", m_Color.red, m_Color.green, m_Color.blue, m_Color.alpha);
+
+    va->UnBind();
+    vb->UnBind();
+    shader->Unbind();
+}
+
+void RenderWidget::resizeGL(int w, int h)
+{
+    glViewport(0, 0, w, h);
+    // Update the projection matrix
+    projection.setToIdentity();
+    projection.perspective(45.0f, static_cast<float>(w) / h, 0.1f, 100.0f);
+}
+
+void RenderWidget::paintGL()
+{
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
+    shader->Bind();
+    shader->SetUniform4f("u_Color", m_Color.red, m_Color.green, m_Color.blue, m_Color.alpha);
+
+    // Set the model-view matrix
+    modelView.setToIdentity();
+    modelView.translate(0.0f, 0.0f, -5.0f); // Move the object back
+    modelView.rotate(m_RotateCoordinates.angle, m_RotateCoordinates.x, m_RotateCoordinates.y, m_RotateCoordinates.z);
+    shader->SetUniformMatrix("mvpMatrix", projection * modelView);
+
+    updateVertexData();
+
+    va->Bind();
+    vb->Bind();
+
+    GLCall(glDrawArrays(GL_TRIANGLES, 0, m_NoOfVertices), *this);
+}
+
+
+void RenderWidget::changeColor(RGBAlpha color)
+{
+    m_Color = color;
+    update();
+}
+
+void RenderWidget::rotate(RotateCoordinates rotateCoordinates)
+{
+    m_RotateCoordinates.angle += rotateCoordinates.angle;
+    m_RotateCoordinates.x = rotateCoordinates.x;
+    m_RotateCoordinates.y = rotateCoordinates.y;
+    m_RotateCoordinates.z = rotateCoordinates.z;
+    update();
+}
+
+void RenderWidget::importObjFile(std::string fileName)
+{
+    parser->setFileName(fileName);
+    parser->parseObjFile();
+    update();
+}
+
+void RenderWidget::updateVertexData()
+{
+    std::vector<Vertex> vertices = parser->getRenderVertices();
+    m_NoOfVertices = vertices.size();
+    m_FloatData.clear();
+
+    for (const auto& v : vertices) {
+        m_FloatData.push_back(v.x);
+        m_FloatData.push_back(v.y);
+        m_FloatData.push_back(v.z);
+    }
+
+    vb->UpdateVertexData(m_FloatData.data(), m_NoOfVertices * no_Coordinates_3D * sizeof(float));
+
+}
+
+void deprecatedRender()
+{
     const std::vector<Vertex> meshPoints = {
         // Front Face
         { -0.5f, -0.5f,  0.5f },
@@ -64,96 +149,6 @@ void RenderWidget::initializeGL()
         {  0.5f,  0.5f, -0.5f },
     };
 
-    parser = new ObjParser("/home/hisham/dev_latest/Data/hing-final.obj");
-//    parser = new ObjParser("/home/hisham/dev_latest/Data/rectangle-prism-final.obj");
-//    parser = new ObjParser("/home/hisham/dev_latest/Data/stem-final.obj");
-
-    parser->parseObjFile();
-
-    color.resize(4);
-    color[0] = 0.1f;
-    color[1] = 0.3f;
-    color[2] = 0.8f;
-    color[3] = 1.0f;
-
-    rotateCoordinates = {45.0f, 0, 1, 0};
-    shapes.resize(1);
-//    shapes[0] = new Triangles(*this, meshPoints);
-    shapes[0] = new Triangles(*this, parser->getRenderVertices());
-
-
-    shader = new Shader(*this, "/home/hisham/dev_latest/MeshGeneration/basic.vert");
-    shader->Bind();
-    shader->SetUniform4f("u_Color", color[0], color[1], color[2], color[3]);
-
-    shader->Unbind();
-
-    for(unsigned int i = 0; i < shapes.size(); i++) {
-        const auto& element = shapes[i];
-        element->UnBind();
-    }
-}
-
-void RenderWidget::resizeGL(int w, int h)
-{
-    glViewport(0, 0, w, h);
-    // Update the projection matrix
-    projection.setToIdentity();
-    projection.perspective(45.0f, static_cast<float>(w) / h, 0.1f, 100.0f);
-}
-
-void RenderWidget::paintGL()
-{
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-    shader->Bind();
-    shader->SetUniform4f("u_Color", color[0], color[1], color[2], color[3]);
-
-    // Set the model-view matrix
-    modelView.setToIdentity();
-    modelView.translate(0.0f, 0.0f, -5.0f); // Move the object back
-    modelView.rotate(rotateCoordinates.angle, rotateCoordinates.x, rotateCoordinates.y, rotateCoordinates.z);
-    shader->SetUniformMatrix("mvpMatrix", projection * modelView);
-
-    for(unsigned int i = 0; i < shapes.size(); i++) {
-        const auto& element = shapes[i];
-        element->Render();
-    }
-
-}
-
-
-void RenderWidget::changeColor(std::vector<float> color)
-{
-    if (color.size() > 4)
-    {
-        qDebug() << "invalid rgba color float";
-    }
-    this->color[0] = color[0];
-    this->color[1] = color[1];
-    this->color[2] = color[2];
-    this->color[3] = color[3];
-    update();
-}
-
-void RenderWidget::rotate(RotateCoordinates rotateCoordinates)
-{
-    this->rotateCoordinates.angle += rotateCoordinates.angle;
-    this->rotateCoordinates.x = rotateCoordinates.x;
-    this->rotateCoordinates.y = rotateCoordinates.y;
-    this->rotateCoordinates.z = rotateCoordinates.z;
-    update();
-}
-
-void RenderWidget::importObjFile(std::string fileName)
-{
-    parser->setFileName(fileName);
-    parser->parseObjFile();
-    update();
-}
-
-void deprecatedRender()
-{
     float positions[8] = {
         -0.5f, -0.5f,
          0.5f, -0.5f,

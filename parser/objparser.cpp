@@ -30,6 +30,13 @@ void ObjParser::parseObjFile()
         return;
     }
 
+    m_Vertices.clear();
+    m_Normals.clear();
+    m_Faces.clear();
+
+    m_RenderVertices.clear();
+    m_RenderNormals.clear();
+
     std::string line;
     while(std::getline(objFile, line)) {
         std::istringstream iss(line);

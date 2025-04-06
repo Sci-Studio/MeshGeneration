@@ -1,0 +1,6 @@
+# Editor settings
+CMakeLists.txt.user
+
+# build directory
+/build
+

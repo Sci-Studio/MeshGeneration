@@ -11,6 +11,9 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
+set(SHADER_FILE "${CMAKE_CURRENT_SOURCE_DIR}/basic.vert")
+set(DEST_DIR "${CMAKE_CURRENT_BINARY_DIR}")
+
 find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets Gui OpenGL OpenGLWidgets REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets Gui OpenGL OpenGLWidgets REQUIRED)
 find_package(OpenGL REQUIRED)
@@ -71,6 +74,14 @@ else()
         )
     endif()
 endif()
+
+add_custom_command(
+    TARGET ${PROJECT_NAME} POST_BUILD
+    COMMAND ${CMAKE_COMMAND} -E copy
+            "${SHADER_FILE}"
+            "${DEST_DIR}/"
+        COMMENT "Copying shader files to build directory..."
+)
 
 target_link_libraries(MeshGeneration
     PRIVATE
