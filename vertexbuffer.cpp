@@ -27,5 +27,5 @@ void VertexBuffer::UnBind() const
 void VertexBuffer::UpdateVertexData(const void* data, unsigned int size) const
 {
     GLCall(m_Context.glBindBuffer(GL_ARRAY_BUFFER, m_RendererID), m_Context);
-    GLCall(m_Context.glBufferData(GL_ARRAY_BUFFER, size, data, GL_STREAM_DRAW), m_Context);
+    GLCall(m_Context.glBufferData(GL_ARRAY_BUFFER, size, data, GL_STATIC_DRAW), m_Context);
 }
