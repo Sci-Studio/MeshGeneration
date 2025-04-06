@@ -216,8 +216,8 @@
      <rect>
       <x>415</x>
       <y>236</y>
-      <width>200</width>
-      <height>100</height>
+      <width>159</width>
+      <height>75</height>
      </rect>
     </property>
     <property name="title">
@@ -241,7 +241,7 @@
   </widget>
   <action name="actionOpen">
    <property name="text">
-    <string>Open</string>
+    <string>Open File</string>
    </property>
   </action>
  </widget>
